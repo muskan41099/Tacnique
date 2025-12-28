@@ -101,7 +101,6 @@ submissions
 - id (PK)
 - quiz_id (FK)
 - user_id (FK)
-- answers (JSON)
 - score (int)
 - total (int)
 - submitted_at (timestamp)
