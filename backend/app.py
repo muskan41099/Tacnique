@@ -12,6 +12,9 @@ CORS(app)
 
 active_tokens = {}  
 
+def hash_password(password):
+    return hashlib.sha256(password.encode()).hexdigest()
+
 # -----------------------------
 # Database helpers
 # -----------------------------
@@ -97,8 +100,7 @@ def get_db():
 # Auth helpers
 # -----------------------------
 
-def hash_password(password):
-    return hashlib.sha256(password.encode()).hexdigest()
+
 
 def generate_token():
     return secrets.token_urlsafe(32)
@@ -202,7 +204,7 @@ def login():
     token = generate_token()
     active_tokens[token] = {
         "user_id": row["id"],
-        "username": row["username"],
+        "username": username,
         "is_admin": bool(row["is_admin"]),
         "expires": datetime.now() + timedelta(hours=24)
     }
@@ -218,7 +220,7 @@ def login():
 
 
 @app.route("/api/logout", methods=["POST"])
-@require_auth()
+@require_auth
 def logout(user_data):
     token = request.headers.get("Authorization").split(" ")[1]
     if token in active_tokens:
@@ -227,7 +229,7 @@ def logout(user_data):
 
 
 @app.route("/api/me", methods=["GET"])
-@require_auth()
+@require_auth
 def get_current_user(user_data):
     return jsonify({
         "id": user_data["user_id"],
@@ -237,19 +239,19 @@ def get_current_user(user_data):
 
 
 @app.route("/api/quizzes", methods=["POST"])
-@require_admin()
+@require_admin
 def create_quiz(user_data):
     data = request.json
     conn = get_db()
     cur = conn.cursor()
 
-    c.execute(
+    cur.execute(
         "INSERT INTO quizzes (title, created_by) VALUES (?, ?)",
         (data.get("title"), user_data["user_id"])
     )
     quiz_id = cur.lastrowid
 
-    for q in data.get("questions"):
+    for q in data.get("questions", []):
         cur.execute(
             """
             INSERT INTO questions (quiz_id, question_text, question_type, options, correct_answer)
@@ -308,7 +310,7 @@ def get_quiz(quiz_id):
 
 
 @app.route("/api/quizzes/<int:quiz_id>/submit", methods=["POST"])
-@require_auth()
+@require_auth
 def submit_quiz(user_data, quiz_id):
     data = request.json
     answers = data.get("answers", {})

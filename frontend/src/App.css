@@ -1,42 +1,165 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+:root {
+  --bg: #0f1720;
+  --card: #0b1220;
+  --muted: #9aa4b2;
+  --accent: #7c5cff;
+  --success: #22c55e;
+  --danger: #ef4444;
+  color-scheme: dark;
+  color: #e6eef6;
+  background: linear-gradient(180deg, #071021 0%, #0b1220 100%);
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.app-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+.brand {
+  font-size: 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+nav {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* Default buttons (fallback) */
+nav button, .nav-btn, button {
+  padding: 0.5rem 0.9rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.03);
+  color: #e6eef6;
+  cursor: pointer;
+  transition: transform .06s ease, box-shadow .12s ease, background .12s ease;
+}
+
+.nav-btn:hover, button:hover { transform: translateY(-1px); }
+
+/* Primary / accent buttons */
+.nav-primary, .primary {
+  background: linear-gradient(90deg, var(--accent), #5f7bff);
+  color: white;
+  border: none;
+  box-shadow: 0 6px 18px rgba(124,92,255,0.12);
+}
+
+.nav-primary:hover, .primary:hover { box-shadow: 0 10px 30px rgba(124,92,255,0.18); }
+
+/* Link style - subtle */
+.link {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* Danger buttons */
+.nav-danger, .danger { background: rgba(239,68,68,0.08); color: var(--danger); border: 1px solid rgba(239,68,68,0.12); }
+
+/* Small variants keep the background */
+.primary.small { background: linear-gradient(90deg, var(--accent), #5f7bff); color: white; }
+.link.small { background: transparent; }
+
+
+.container {
+  max-width: 980px;
+  margin: 2rem auto;
+  padding: 1rem;
+  flex: 1 0 auto;
 }
 
 .card {
-  padding: 2em;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: 10px;
+  padding: 1.2rem;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.6);
+  margin-bottom: 1rem;
+  text-align: left;
 }
 
-.read-the-docs {
-  color: #888;
+.auth-card, .admin-card, .quiz-card, .list-card { max-width: 720px; margin: 0 auto; }
+
+.form label { display: block; margin-bottom: 0.6rem; font-weight: 600; }
+.form input, .form textarea, .form select {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.04);
+  background: rgba(255,255,255,0.01);
+  color: inherit;
+  margin-top: 0.35rem;
+  appearance: none;
+}
+
+.form select { background-image: linear-gradient(45deg, transparent 50%, rgba(255,255,255,0.5) 50%), linear-gradient(135deg, rgba(255,255,255,0.5) 50%, transparent 50%);
+  background-position: calc(100% - 16px) calc(1em + 2px), calc(100% - 10px) calc(1em + 2px);
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  padding-right: 2.2rem;
+  cursor: pointer;
+}
+
+.option select { max-width: 220px; display: inline-block; position: relative; z-index: 3; }
+.row { display:flex; gap: 0.6rem; align-items:center; margin-top: 0.8rem; }
+.row.small { gap: 0.4rem; }
+
+.primary { background: var(--accent); color: white; border: none; }
+.link { background: transparent; border: 1px solid rgba(255,255,255,0.03); }
+
+.grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+.quiz-item { padding: 1rem; border-radius: 8px; background: rgba(255,255,255,0.02); }
+.muted { color: var(--muted); font-size: 0.95rem; }
+.option { display:flex; align-items:center; gap:0.6rem; margin-top: 0.4rem; }
+.question { margin-bottom: 1rem; }
+.q-text { font-weight: 700; margin-bottom: 0.5rem; }
+
+.question-card { border: 1px solid rgba(255,255,255,0.03); padding: 0.8rem; border-radius: 8px; margin-bottom: 0.8rem; background: rgba(255,255,255,0.01); }
+.question-card .row { justify-content: space-between; align-items: center; }
+.option-row { display:flex; gap:0.6rem; align-items:center; margin-top:0.4rem; }
+
+.options { display:flex; flex-direction:column; gap:0.35rem; margin-top:0.5rem; }
+.option { display:flex; align-items:center; gap:0.6rem; margin-top: 0.2rem; padding: 0.35rem 0.5rem; border-radius: 6px; }
+.option label { display:flex; align-items:center; gap:0.6rem; width:100%; cursor:pointer; }
+.option input { margin:0; accent-color: var(--accent); width:1.05em; height:1.05em; cursor: pointer; }
+.option:hover { background: rgba(255,255,255,0.01); }
+.option input:focus-visible { outline: 3px solid rgba(124,92,255,0.16); border-radius:50%; }
+
+button { cursor: pointer; }
+
+/* Select styling */
+.form select { background-image: linear-gradient(45deg, transparent 50%, rgba(255,255,255,0.5) 50%), linear-gradient(135deg, rgba(255,255,255,0.5) 50%, transparent 50%);
+  background-position: calc(100% - 16px) calc(1em + 2px), calc(100% - 10px) calc(1em + 2px);
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  padding-right: 2.2rem;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+/* Small button variants */
+.primary.small { padding: 0.4rem 0.7rem; font-size: 0.9rem; }
+.link.small { padding: 0.25rem 0.5rem; font-size: 0.85rem; }
+
+.primary[disabled], .link[disabled] { opacity: 0.6; cursor: not-allowed; }
+
+.info { color: var(--muted); }
+.user { margin-right: 0.6rem; }
+
+.app-footer { text-align:center; padding: 1rem; color: var(--muted); font-size: 0.95rem; }
+
+@media (max-width: 720px) {
+  .app-header { padding: 0.75rem 1rem; }
+  .container { padding: 0.5rem; }
 }
