@@ -1,0 +1,14 @@
+# Root .gitignore
+# Python
+backend/venv/
+*.py[cod]
+__pycache__/
+# Node
+frontend/node_modules/
+dist/
+# Env
+.env
+# OS
+.DS_Store
+# IDE
+.vscode/
